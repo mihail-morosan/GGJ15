@@ -6,6 +6,8 @@ public class CameraFollowCar : MonoBehaviour
 
     public GameObject ObjectToFollow;
 
+    public float VerticalHeight = 20.0f;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -18,7 +20,7 @@ public class CameraFollowCar : MonoBehaviour
 	        return;
         Vector3 _pos = new Vector3();
 	    _pos = ObjectToFollow.transform.position;
-	    _pos.y = 50;
+	    _pos.y = VerticalHeight;
 	    this.transform.position = _pos;
 	}
 }
