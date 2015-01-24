@@ -46,7 +46,7 @@ public class ScoreManagement : MonoBehaviour
         }
         if (restSeconds == 0)
         {
-            print("Time is Over");
+            //print("Time is Over");
             //do stuff here
 
             if (LevelToLoadOnComplete.Length > 0)

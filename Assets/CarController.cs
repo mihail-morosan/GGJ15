@@ -9,6 +9,8 @@ public class CarController : MonoBehaviour
 
     public float BrakeMagnitude;
 
+    public bool HasPickup = false;
+
 	// Use this for initialization
 	void Start () {
         rigidbody.centerOfMass = new Vector3(0, -0.5f, 0.3f);
