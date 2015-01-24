@@ -75,11 +75,32 @@ public class TestWheelControl : MonoBehaviour
 	        _abs += Vel[i].z;
 
             GetCollider(i).motorTorque = Vel[i].z;
+	        if (Vel[i].z == 0)
+	        {
+	            GetCollider(i).brakeTorque = VelocityMagnitude/10;
+	        }
             GetCollider(i).steerAngle = 0;
 	    }
 
-        //TODO
+	    for (int i = 0; i < 4; i++)
+	    {
+	        if (Vel[i].z != Vel[3 - i].z)
+	        {
+	            if (i < 3 - i)
+	            {
+	                GetCollider(i).steerAngle = 35;
 
+	            }
+	            else
+	            {
+
+                    GetCollider(i).steerAngle = -35;
+	            }
+	        }
+	    }
+
+	    //TODO
+        /*
         if(_abs < VelocityMagnitude * 3)
 	        for (int i = 0; i < 4; i++)
 	        {
@@ -98,7 +119,7 @@ public class TestWheelControl : MonoBehaviour
                     GetCollider(i).motorTorque *= 3;
                     Debug.Log("IT HAPPENED");
                 }
-            }
+            }*/
 
 	    float steerRate = 45.0f;
 
