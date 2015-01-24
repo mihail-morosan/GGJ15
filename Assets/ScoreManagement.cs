@@ -5,19 +5,24 @@ using UnityEngine.UI;
 public class ScoreManagement : MonoBehaviour
 {
 
-    public int Score;
+    public int Score
+    {
+        get { return ApplicationState.Score; }
+        set { ApplicationState.Score = value; }
+    }
 
     public Text ScoreText;
 
 	// Use this for initialization
 	void Start ()
 	{
-	    Score = 0;
+	    ApplicationState.ResetScore();
 	}
 
     public void AddPoints(int Value)
     {
-        Score += Value;
+        Debug.Log(Score + " " + Value);
+        Score = Score + Value;
     }
 	
 	// Update is called once per frame

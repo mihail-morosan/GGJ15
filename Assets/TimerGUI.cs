@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using System.Collections;
 
@@ -15,6 +16,8 @@ public class TimerGUI : MonoBehaviour {
     private float displayMinutes;
 
     public int CountDownSeconds;
+
+    public String LevelToLoadOnComplete;
 
     void Awake() { startTime = Time.time; }
 
@@ -33,6 +36,9 @@ public class TimerGUI : MonoBehaviour {
         {
             print("Time is Over");
             //do stuff here
+
+            if(LevelToLoadOnComplete.Length > 0)
+                Application.LoadLevel(LevelToLoadOnComplete);
         }
 
         //display the timer
