@@ -29,6 +29,10 @@ public class HumanBehaviour : MonoBehaviour {
         {
             turnLeft();
         }
+        if (col.gameObject.tag == "right")
+        {
+            turnRight();
+        }
         if (col.gameObject.tag == "rightchance")
         {
               turnRight();
