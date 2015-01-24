@@ -6,7 +6,7 @@ public class TestWheelControl : MonoBehaviour
 
     public Vector3 Velocity;
 
-    public bool[] MyInput;
+    public bool[] IsAlwaysOn;
 
     public float VelocityMagnitude;
 
@@ -25,37 +25,37 @@ public class TestWheelControl : MonoBehaviour
 	{
         Vector3[] Vel = new Vector3[4];
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q) || IsAlwaysOn[0])
         {
             Vel[0].z += VelocityMagnitude;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            Vel[0].z -= VelocityMagnitude;
+            Vel[0].z -= VelocityMagnitude * (IsAlwaysOn[0] ? 2 : 1);
         }
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || IsAlwaysOn[1])
         {
             Vel[1].z += VelocityMagnitude;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            Vel[1].z -= VelocityMagnitude;
+            Vel[1].z -= VelocityMagnitude * (IsAlwaysOn[1] ? 2 : 1);
         }
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E) || IsAlwaysOn[2])
         {
             Vel[2].z += VelocityMagnitude;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            Vel[2].z -= VelocityMagnitude;
+            Vel[2].z -= VelocityMagnitude * (IsAlwaysOn[2] ? 2 : 1);
         }
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKey(KeyCode.R) || IsAlwaysOn[3])
         {
             Vel[3].z += VelocityMagnitude;
         }
         if (Input.GetKey(KeyCode.F))
         {
-            Vel[3].z -= VelocityMagnitude;
+            Vel[3].z -= VelocityMagnitude * (IsAlwaysOn[3] ? 2 : 1);
         }
 
 	    for (int i = 0; i < 4; i++)
