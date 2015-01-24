@@ -25,9 +25,6 @@ public class TestWheelControl : MonoBehaviour
 	{
         Vector3[] Vel = new Vector3[4];
 
-        float _abs = 0;
-
-
         if (Input.GetKey(KeyCode.Q))
         {
             Vel[0].z += VelocityMagnitude;
@@ -63,22 +60,13 @@ public class TestWheelControl : MonoBehaviour
 
 	    for (int i = 0; i < 4; i++)
 	    {
-            //Vel[i] = new Vector3();
-            //Vel[i] = new Vector3(0, 0, VelocityMagnitude);
-
-            //if (MyInput[i])
-            //{
-            //    Vel[i] *= -1;
-            //    _abs++;
-            //}
-
-	        _abs += Vel[i].z;
-
             GetCollider(i).motorTorque = Vel[i].z;
+
 	        if (Vel[i].z == 0)
 	        {
 	            GetCollider(i).brakeTorque = VelocityMagnitude/10;
 	        }
+
             GetCollider(i).steerAngle = 0;
 	    }
 
@@ -98,68 +86,15 @@ public class TestWheelControl : MonoBehaviour
 	            }
 	        }
 	    }
-
-	    //TODO
-        /*
-        if(_abs < VelocityMagnitude * 3)
-	        for (int i = 0; i < 4; i++)
-	        {
-	            if (Vel[i].z < 0)
-	            {
-	                    GetCollider(i).motorTorque *= 3;
-                        Debug.Log("IT HAPPENED");
-	            }
-	        }
-        else
-        if (_abs > VelocityMagnitude * -3)
-            for (int i = 0; i < 4; i++)
-            {
-                if (Vel[i].z > 0)
-                {
-                    GetCollider(i).motorTorque *= 3;
-                    Debug.Log("IT HAPPENED");
-                }
-            }*/
-
-	    float steerRate = 45.0f;
-
-
-	    /*if (_abs == 3)
-	    {
-	        for (int i = 0; i < 4; i++)
-	        {
-	            if (!Input[i])
-	            {
-	                for (int y = 0; y < 4; y++)
-	                {
-                        GetCollider(y).steerAngle = (i < 2) ? -steerRate : steerRate;
-	                }
-
-                    GetCollider(i).steerAngle = 0;
-	            }
-	        }
-	    }
-
-        if (_abs == 1)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                if (Input[i])
-                {
-                    for (int y = 0; y < 4; y++)
-                    {
-                        GetCollider(y).steerAngle = (i < 2) ? steerRate : -steerRate;
-                    }
-
-                    GetCollider(i).steerAngle = 0;
-                }
-            }
-        }*/
-        
 	}
 
     WheelCollider GetCollider(int n)
     {
         return this.transform.GetChild(4 + n).GetComponent<WheelCollider>();
+    }
+
+    MeshRenderer GetRenderer(int n)
+    {
+        return this.transform.GetChild(n).GetComponent<MeshRenderer>();
     }
 }

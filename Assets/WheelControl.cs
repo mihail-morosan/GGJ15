@@ -3,8 +3,12 @@ using System.Collections;
 
 public class WheelControl : MonoBehaviour
 {
+    public KeyCode ForwardKey;
+    public KeyCode BackwardKey;
 
-    public float Torque = 0;
+    public Color DefaultColor = Color.black;
+    public Color ForwardColor = Color.green;
+    public Color BackwardColor = Color.red;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +17,20 @@ public class WheelControl : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-	    this.GetComponent<Rigidbody>().AddTorque(Torque,0,0);
+        this.renderer.material.color = DefaultColor;
+	    if (Input.GetKey(ForwardKey))
+	    {
+	        this.renderer.material.color = ForwardColor;
+	    }
+
+	    if (Input.GetKey(BackwardKey))
+	    {
+            this.renderer.material.color = BackwardColor;
+	    }
+
+	    if (Input.GetKey(ForwardKey) && Input.GetKey(BackwardKey))
+	    {
+            this.renderer.material.color = DefaultColor;
+	    }
 	}
 }
