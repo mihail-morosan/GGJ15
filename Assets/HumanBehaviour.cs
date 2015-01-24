@@ -44,6 +44,14 @@ public class HumanBehaviour : MonoBehaviour {
             if (WalkSpeed < 0) turnRight();
             else turnLeft();
         }
+        if (col.gameObject.tag == "lrchance")
+        {
+            int num = Random.Range(1, 5);
+            if (num == 3){
+                if (WalkSpeed < 0) turnRight();
+            else turnLeft();
+            }
+        }
         if (col.gameObject.tag == "ai_car")
         {
             
