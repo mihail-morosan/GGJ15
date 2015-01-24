@@ -10,6 +10,8 @@ public class TestWheelControl : MonoBehaviour
 
     public float VelocityMagnitude;
 
+    public float BrakeMagnitude;
+
 	// Use this for initialization
 	void Start () {
         rigidbody.centerOfMass = new Vector3(0, -0.5f, 0.3f);
@@ -64,7 +66,7 @@ public class TestWheelControl : MonoBehaviour
 
 	        if (Vel[i].z == 0)
 	        {
-	            GetCollider(i).brakeTorque = VelocityMagnitude/10;
+	            GetCollider(i).brakeTorque = BrakeMagnitude;
 	        }
 
             GetCollider(i).steerAngle = 0;
