@@ -3,9 +3,6 @@ using System.Collections;
 
 public class CarController : MonoBehaviour
 {
-
-    public Vector3 Velocity;
-
     public bool[] IsAlwaysOn;
 
     public float VelocityMagnitude;
