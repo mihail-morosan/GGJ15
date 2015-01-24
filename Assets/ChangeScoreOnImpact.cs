@@ -8,6 +8,8 @@ public class ChangeScoreOnImpact : MonoBehaviour
 
     public bool DestroyOnCollision = true;
 
+    public int SecondsToAdd = 0;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -23,6 +25,7 @@ public class ChangeScoreOnImpact : MonoBehaviour
         if (Coll.transform.tag == "Player")
         {
             Coll.transform.GetComponent<ScoreManagement>().AddPoints(ScoreChange);
+            Coll.transform.GetComponent<ScoreManagement>().AddSeconds(SecondsToAdd);
 
             if (DestroyOnCollision)
             {

@@ -13,7 +13,10 @@ public class PickUpHumanBehaviour : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
+	    if (player == null)
+	        return;
         if (checkProxi())
         {
             if (player.rigidbody.velocity.sqrMagnitude < stopValue){
