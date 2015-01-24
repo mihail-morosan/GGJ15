@@ -13,7 +13,7 @@ public class EndScoreScripts : MonoBehaviour
 
     public void LoadScene(String scene)
     {
-        Application.LoadLevel(scene);
+        Application.LoadLevel(scene); 
     }
 
 	// Update is called once per frame
