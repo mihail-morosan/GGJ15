@@ -29,11 +29,15 @@ public class HumanBehaviour : MonoBehaviour {
         {
             turnLeft();
         }
-        if (col.gameObject.tag == "right")
+        if (col.gameObject.tag == "rightchance")
+        {
+              turnRight();
+        }
+        if (col.gameObject.tag == "leftchance")
         {
             int num = Random.Range(1, 5);
-            if( num == 3)
-              turnRight();
+            if (num == 3)
+                turnLeft();
         }
         if (col.gameObject.tag == "lr")
         {
