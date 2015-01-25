@@ -20,6 +20,9 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
     public GameObject DestinationPrefab;
 
+    public AnimationClip IdleAnimation;
+    public AnimationClip RunAnimation;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -36,7 +39,9 @@ public class StreetWalkerBehaviour : MonoBehaviour
 	void Update () {
 
 	    if (!WantsToBePickedUp)
-	    {
+        {
+            this.animation.CrossFade("run");
+
 	        //Debug.Log(Time.time - _lastUpdate);
 	        if (Time.time - _lastUpdate > UpdateFrequency)
 	        {
@@ -69,9 +74,11 @@ public class StreetWalkerBehaviour : MonoBehaviour
 	        }
 	    }
 	    else
-	    {
+        {
+            this.animation.CrossFade("idle");
 	        //Check for player movement
-
+	        if (Player == null)
+	            return;
             if (!Player.HasPickup && CheckProximity())
             {
                 Debug.Log("Is in Proximity");
