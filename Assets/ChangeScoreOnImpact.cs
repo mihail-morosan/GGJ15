@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Timers;
+using UnityEngine;
 using System.Collections;
 
 public class ChangeScoreOnImpact : MonoBehaviour
@@ -12,6 +13,9 @@ public class ChangeScoreOnImpact : MonoBehaviour
 
     public GameObject SpawnOnDeath;
 
+    private float _oldMoveSpeed;
+    private float _whenSetSpeed = 0;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -19,8 +23,17 @@ public class ChangeScoreOnImpact : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (transform.GetComponent<CarNPCs>() != null && transform.GetComponent<CarNPCs>().moveSpeed == 0 && Time.time - _whenSetSpeed > 2)
+        {
+            ResetMovement();
+        }
 	}
+
+    void ResetMovement()
+    {
+        if (transform.GetComponent<CarNPCs>() != null)
+            transform.GetComponent<CarNPCs>().moveSpeed = _oldMoveSpeed;
+    }
 
     void OnCollisionEnter(Collision Coll)
     {
@@ -33,8 +46,14 @@ public class ChangeScoreOnImpact : MonoBehaviour
             }
 
             //Change this to temporal
-            if(transform.GetComponent<CarNPCs>()!=null)
+            if (transform.GetComponent<CarNPCs>() != null)
+            {
+                _oldMoveSpeed = transform.GetComponent<CarNPCs>().moveSpeed;
                 transform.GetComponent<CarNPCs>().moveSpeed = 0;
+
+                _whenSetSpeed = Time.time;
+            }
+
 
             if (SpawnOnDeath != null)
             {
