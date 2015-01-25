@@ -41,7 +41,8 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
 	    if (!WantsToBePickedUp)
         {
-            this.animation.CrossFade("run");
+            if (this.animation != null)
+                this.animation.CrossFade("run");
 
 	        //Debug.Log(Time.time - _lastUpdate);
 	        if (Time.time - _lastUpdate > UpdateFrequency)
@@ -76,7 +77,8 @@ public class StreetWalkerBehaviour : MonoBehaviour
 	    }
 	    else
         {
-            this.animation.CrossFade("idle");
+            if(this.animation != null)
+                this.animation.CrossFade("idle");
 	        //Check for player movement
 	        if (Player == null)
 	            return;
