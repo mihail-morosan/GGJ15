@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 public class StreetWalkerBehaviour : MonoBehaviour
 {
 
+    Vector3 finalPosition;
     private float _lastUpdate = 0;
     private Vector3 _destination;
 
@@ -55,7 +56,7 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
 	        NavMesh.SamplePosition(_destination, out hit, 100, 1);
 
-	        Vector3 finalPosition = hit.position;
+	        finalPosition = hit.position;
 
 	        finalPosition.y = transform.position.y;
 
@@ -83,7 +84,7 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
 
                     //Create destination for dropoff
-                    Vector3 randomDirection = Random.insideUnitSphere * 15;
+                    Vector3 randomDirection = Random.insideUnitSphere * 100;
 
                     randomDirection += transform.position;
 
@@ -91,7 +92,7 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
                     NavMeshHit hit;
 
-                    NavMesh.SamplePosition(_destination, out hit, 100, 1);
+                    NavMesh.SamplePosition(_destination, out hit, 1000, 1);
 
                     Vector3 finalPosition = hit.position;
 
@@ -111,6 +112,6 @@ public class StreetWalkerBehaviour : MonoBehaviour
 	}
 
     public Vector3 GetPickupDestination(){
-        return _destination;
+        return finalPosition;
     }
 }
