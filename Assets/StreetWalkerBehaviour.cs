@@ -92,7 +92,7 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
 
                     //Create destination for dropoff
-                    Vector3 randomDirection = Random.insideUnitSphere * 100;
+                    Vector3 randomDirection = Random.insideUnitSphere * 400;
 
                     randomDirection += transform.position;
 

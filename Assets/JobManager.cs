@@ -70,7 +70,7 @@ public class JobManager : MonoBehaviour {
     Vector3 GetRandomVector(GameObject target)
     {
         Vector3 _destination;
-        Vector3 randomDirection = Random.insideUnitSphere * 15;
+        Vector3 randomDirection = Random.insideUnitSphere * 115;
 
         randomDirection += target.transform.position;
 
@@ -78,7 +78,7 @@ public class JobManager : MonoBehaviour {
 
         NavMeshHit hit;
 
-        NavMesh.SamplePosition(_destination, out hit, 15, 1);
+        NavMesh.SamplePosition(_destination, out hit, 115, 1);
 
         Vector3 finalPosition = hit.position;
 

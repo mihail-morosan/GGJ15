@@ -28,7 +28,7 @@ public class GenerateHumans : MonoBehaviour {
         {
             float x = Random.Range(this.renderer.bounds.min.x + 2, this.renderer.bounds.max.x - 2);
             float z = Random.Range(this.renderer.bounds.min.z + 2, this.renderer.bounds.max.z - 2);
-            float y = transform.position.y + 1;
+            float y = transform.position.y;
             Vector3 posgen = new Vector3(x, y, z);
             GameObject go = Instantiate(human, posgen, Quaternion.identity) as GameObject;
             int factor = Random.Range(1, 3) == 1 ? -1 : 1;
