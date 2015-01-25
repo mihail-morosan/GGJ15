@@ -3,74 +3,81 @@ using System.Collections;
 
 public class JobManager : MonoBehaviour {
     public GameObject target;
-    public GameObject player;
+    public CarController player;
+    public DestinationBehaviour destination;
     public float proxiRange;
     public int stopValue;
     GameObject newTarget;
-    Vector3[] waypoints;
-    int jobStatus;
+    public StreetWalkerBehaviour walker;
+    public GameObject DestinationPrefab;
+    public GameObject WalkerPrefab;
 	// Use this for initialization
 	void Start () {
-        jobStatus = 0;
-        newTarget = Instantiate(target, waypoints[Random.Range(0, waypoints.Length)], Quaternion.identity) as GameObject;
+        destination.gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	    
-	}
-
-    void PickUp(GameObject target)
-    {
-        if (checkProxi(player,target))
-            if (checkStop(player))
+	    if (player.HasPickup)
+        {
+            print("found pickup");
+            if (!destination.gameObject.activeSelf){
+                destination.gameObject.transform.position = walker.GetPickupDestination();
+                destination.gameObject.SetActive(true);
+                player.GetComponent<PointArrowAtTarget>().TargetObject = destination.gameObject;
+                walker.gameObject.SetActive(false);
+                print("made destination");
+            }
+            
+            if (destination.Reached())
             {
-               // jobStatus: 0 = looking for customer
-                //           1 = going to destination
-                //           2 = delivered
-                if (jobStatus == 1)
-                {   jobStatus = 2;
-                    return;
-                }
-                if (jobStatus == 0)
+                print("reached destination");
+               // Vector3 nextPos = Random.insideUnitSphere * 15;
+               // nextPos += destination.transform.position;
+                if (!walker.gameObject.activeSelf)
                 {
-                    jobStatus = 1;
-                    return;
+                    walker.transform.position = GetRandomVector(walker.gameObject);
+                    walker.gameObject.SetActive(true);
+                    player.GetComponent<PointArrowAtTarget>().TargetObject = walker.gameObject;
+ 
                 }
-                if (jobStatus == 2)
-                {
-                    jobStatus = 0;
-                    return;
-                }
-                // add player score too in if statements.
-                newTarget = Instantiate(target, waypoints[Random.Range(0, waypoints.Length)], Quaternion.identity) as GameObject;
+                player.HasPickup = false;
+                destination._reached = false;
+                destination.gameObject.SetActive(false);
                 
             }
-        
-    }
+        }
 
-    bool checkProxi(GameObject player, GameObject target)
+	}
+
+    bool checkProxi(CarController player, Vector3 target)
     {
-        return Vector3.Distance(player.transform.localPosition, target.transform.localPosition) < proxiRange;
+        return Vector3.Distance(player.transform.localPosition, target) < proxiRange;
     }
     bool checkStop(GameObject player)
     {
         return player.rigidbody.velocity.sqrMagnitude < stopValue;
     }
-    void InitializeWaypoints()
+
+
+    Vector3 GetRandomVector(GameObject target)
     {
-        waypoints[0] = new Vector3(2.19f, 3f, -4.2f);
-        waypoints[1] = new Vector3(-1f, 3f, -4.3f);
-        waypoints[2] = new Vector3(0.6f, 3f, 4.2f);
-        waypoints[3] = new Vector3(-1.2f, 3f, 5f);
-    }
-    void OnCollisionEntry(Collision col)
-    {
-        if (col.gameObject.tag == "Player")
-        {
-            // score -
-            newTarget = Instantiate(target, waypoints[Random.Range(0, waypoints.Length)], Quaternion.identity) as GameObject;
-            jobStatus = 0;
-        }
+        Vector3 _destination;
+        Vector3 randomDirection = Random.insideUnitSphere * 15;
+
+        randomDirection += target.transform.position;
+
+        _destination = randomDirection;
+
+        NavMeshHit hit;
+
+        NavMesh.SamplePosition(_destination, out hit, 15, 1);
+
+        Vector3 finalPosition = hit.position;
+
+        finalPosition.y = 0;
+
+        return finalPosition;
+
     }
 }
