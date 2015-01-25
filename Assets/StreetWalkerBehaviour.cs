@@ -116,4 +116,9 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
 	    //transform.position += (finalPosition - transform.position)*Time.deltaTime;
 	}
+
+    public Vector3 GetPickupDestination()
+    {
+        return _destination;
+    }
 }
