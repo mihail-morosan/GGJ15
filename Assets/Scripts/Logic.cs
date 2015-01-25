@@ -194,6 +194,7 @@ public class Logic : MonoBehaviour {
 		GameObject car = cars [Random.Range (0, cars.Count)];
 		GameObject newCar = (GameObject)Instantiate(car, startingPosition, Quaternion.identity);
 		newCar.GetComponent<CarNPCs> ().waypoints = graph;
+		newCar.GetComponent<CarNPCs> ().lastWP = startingPosition;
 		newCar.GetComponent<CarNPCs> ().currentWP = currentWaypoint;
 		newCar.GetComponent<CarNPCs> ().logic = this.gameObject;
 		newCar.GetComponent<CarNPCs> ().id = carGuid;

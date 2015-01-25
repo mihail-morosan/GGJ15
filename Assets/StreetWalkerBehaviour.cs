@@ -59,7 +59,7 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
 	        NavMeshHit hit;
 
-	        NavMesh.SamplePosition(_destination, out hit, 100, 1);
+            NavMesh.SamplePosition(_destination, out hit, 100, 1 << NavMesh.GetNavMeshLayerFromName("Street"));
 
 	        Vector3 finalPosition = hit.position;
 
@@ -100,7 +100,7 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
                     NavMeshHit hit;
 
-                    NavMesh.SamplePosition(_destination, out hit, 1000, 1);
+                    NavMesh.SamplePosition(_destination, out hit, 1000, 1 << NavMesh.GetNavMeshLayerFromName("Street"));
 
                     Vector3 finalPosition = hit.position;
 
@@ -123,7 +123,7 @@ public class StreetWalkerBehaviour : MonoBehaviour
     {
         NavMeshHit hit;
 
-        NavMesh.SamplePosition(_destination, out hit, 1000, 1);
+        NavMesh.SamplePosition(_destination, out hit, 1000, 1 << NavMesh.GetNavMeshLayerFromName("Street"));
 
         Vector3 finalPosition = hit.position;
 

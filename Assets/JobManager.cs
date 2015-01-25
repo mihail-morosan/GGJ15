@@ -78,7 +78,7 @@ public class JobManager : MonoBehaviour {
 
         NavMeshHit hit;
 
-        NavMesh.SamplePosition(_destination, out hit, 115, 1);
+        NavMesh.SamplePosition(_destination, out hit, 115, 1 << NavMesh.GetNavMeshLayerFromName("Street"));
 
         Vector3 finalPosition = hit.position;
 

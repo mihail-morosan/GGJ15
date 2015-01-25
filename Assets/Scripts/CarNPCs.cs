@@ -9,6 +9,7 @@ public class CarNPCs : MonoBehaviour {
 	public float minDistance = 2.0f;
 	//public int currentWPIndex { get; set; }
 	public float rayDistance;
+	public Vector3 lastWP;
 	public Node currentWP;
 	private int stopFrameCounter;
 	public System.Guid id;
@@ -49,6 +50,11 @@ public class CarNPCs : MonoBehaviour {
 			}
 		}
 
+		//Count how long a car is stopped after a crash, and remove it eventually
+		if (moveSpeed == 0) {
+			stopFrameCounter ++;
+		}
+
 		//If another game object in the movement direction is too close, stop. Otherwise, move on.
 		MoveTowardWaypoint();
 		stopFrameCounter = 0;
@@ -57,6 +63,8 @@ public class CarNPCs : MonoBehaviour {
 		{
 			//Select next waypoint randomly
 			int currentWPIndex = Random.Range(0,currentWP.adjacent.Count);
+
+			lastWP = currentWP.coords;
 			currentWP = currentWP.adjacent[currentWPIndex];
 		}
 	}
@@ -79,5 +87,30 @@ public class CarNPCs : MonoBehaviour {
         Vector3 finalPosition = hit.position;
 	    GetComponent<NavMeshAgent>().SetDestination(finalPosition);
 	    */
+	}
+
+	public void MoveBackToLine(){
+
+		print ("Move back to Line");
+		Vector3 closestPointOnLine = DistanceToRay (transform.position, lastWP, currentWP.coords);
+		Node intermediateWP = new Node (closestPointOnLine, -1);
+		intermediateWP.addAdjacent (currentWP);
+		currentWP = intermediateWP;
+
+		Debug.DrawLine (transform.position, closestPointOnLine);
+
+	}
+	
+	private Vector3 DistanceToRay(Vector3 x0, Vector3 origin, Vector3 goal){
+		float k = ((goal.z-origin.z) * (x0.x-origin.x) - (goal.x-origin.x) * (x0.z-origin.z)) / (Mathf.Pow((goal.z - origin.z),2) + Mathf.Pow((goal.x-origin.x),2));
+		float x4 = x0.x - k*(goal.z - origin.z);
+		float y4 = x0.z - k*(goal.x - origin.x);
+		Vector3 closestPoint = new Vector3 (x4, 0, y4);
+
+		print ("Origin: " + origin);
+		print ("Goal: " + goal);
+		print ("Midpoint: " + closestPoint);
+
+		return closestPoint;
 	}
 }

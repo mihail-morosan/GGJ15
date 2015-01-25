@@ -16,6 +16,8 @@ public class ChangeScoreOnImpact : MonoBehaviour
     private float _oldMoveSpeed;
     private float _whenSetSpeed = 0;
 
+    public AudioClip Crash;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -35,8 +37,18 @@ public class ChangeScoreOnImpact : MonoBehaviour
             transform.GetComponent<CarNPCs>().moveSpeed = _oldMoveSpeed;
     }
 
+	void OnCollisionExit(Collision Coll){
+		if (Coll.transform.tag == "Player" && transform.tag == "car") {
+			transform.GetComponent<CarNPCs> ().MoveBackToLine ();
+		}
+	}
+
     void OnCollisionEnter(Collision Coll)
     {
+		/*
+		if (Coll.transform.tag == "car") {
+			print ("crashed!");
+		}*/
         if (Coll.transform.tag == "Player")
         {
             if (Coll.transform.GetComponent<ScoreManagement>() != null)
@@ -48,6 +60,12 @@ public class ChangeScoreOnImpact : MonoBehaviour
             //Change this to temporal
             if (transform.GetComponent<CarNPCs>() != null)
             {
+                if (Crash != null)
+                {
+                    Debug.Log("SoundCrash");
+                    audio.PlayOneShot(Crash);
+                }
+
                 _oldMoveSpeed = transform.GetComponent<CarNPCs>().moveSpeed;
                 transform.GetComponent<CarNPCs>().moveSpeed = 0;
 
@@ -57,7 +75,7 @@ public class ChangeScoreOnImpact : MonoBehaviour
 
             if (SpawnOnDeath != null)
             {
-                Instantiate(SpawnOnDeath, transform.position, transform.rotation);
+                Instantiate(SpawnOnDeath, transform.position - new Vector3(0, 3, 0), transform.rotation);
             }
 
             if (DestroyOnCollision)

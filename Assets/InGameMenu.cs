@@ -31,26 +31,33 @@ public class InGameMenu : MonoBehaviour
         if (Time.timeScale == 0)
         {
             GUI.BeginGroup(new Rect(((Screen.width / 2) - (400 / 2)), ((Screen.height / 2) - (400 / 2)), 400, 400), "Options");
-            
-            if (GUI.Button(new Rect(0, 0, 300, 50), "Main Menu"))
+
+            if (GUI.Button(new Rect(0, 0, 300, 50), "Restart"))
             {
                 Time.timeScale = 1;
-                Application.LoadLevel(0);
-                AudioListener.pause = false;
+                Application.LoadLevel(Application.loadedLevel);
+                //AudioListener.pause = false;
             }
-            if (GUI.Button(new Rect(0, 60, 300, 50), "Resume"))
+
+            if (GUI.Button(new Rect(0, 60, 300, 50), "Main Menu"))
+            {
+                Time.timeScale = 1;
+                Application.LoadLevel("MainMenu");
+                //AudioListener.pause = false;
+            }
+            if (GUI.Button(new Rect(0, 120, 300, 50), "Resume"))
             {
                 //Application.LoadLevel(1);
                 Time.timeScale = 1;
             }
 
-            if (GUI.Button(new Rect(0, 120, 300, 50), "Quit Game"))
+            if (GUI.Button(new Rect(0, 180, 300, 50), "Quit Game"))
             {
                 Application.Quit();
             }
             GUI.EndGroup();
 
-            AudioListener.pause = true;
+            //AudioListener.pause = true;
         }
     }
 }

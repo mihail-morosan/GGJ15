@@ -86,6 +86,6 @@ public class ScoreManagement : MonoBehaviour
         if (ScoreText == null)
             return;
 
-	    ScoreText.text = "Score: " + Score + ". Time left: " + _text;
+	    ScoreText.text = "Follow the arrow to pick people up and drop them off" + "\n" + "Score: " + Score + ". Time left: " + _text;
 	}
 }
