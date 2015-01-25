@@ -8,6 +8,10 @@ public class JobManager : MonoBehaviour {
     public float proxiRange;
     public int stopValue;
     GameObject newTarget;
+
+    public int PointsOnSuccess = 100;
+    public int BonusSecondsOnSuccess = 20;
+
     public StreetWalkerBehaviour walker;
     public GameObject DestinationPrefab;
     public GameObject WalkerPrefab;
@@ -45,8 +49,8 @@ public class JobManager : MonoBehaviour {
                 destination._reached = false;
                 destination.gameObject.SetActive(false);
 
-                player.GetComponent<ScoreManagement>().AddPoints(100);
-                player.GetComponent<ScoreManagement>().AddSeconds(20);
+                player.GetComponent<ScoreManagement>().AddPoints(PointsOnSuccess);
+                player.GetComponent<ScoreManagement>().AddSeconds(BonusSecondsOnSuccess);
 
             }
         }
