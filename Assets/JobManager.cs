@@ -44,7 +44,10 @@ public class JobManager : MonoBehaviour {
                 player.HasPickup = false;
                 destination._reached = false;
                 destination.gameObject.SetActive(false);
-                
+
+                player.GetComponent<ScoreManagement>().AddPoints(100);
+                player.GetComponent<ScoreManagement>().AddSeconds(20);
+
             }
         }
 
