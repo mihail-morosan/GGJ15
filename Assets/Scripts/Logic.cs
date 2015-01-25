@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class Logic : MonoBehaviour {
 
-	public GameObject car;
-	public int carCount = 4;
+	public List<GameObject> cars = new List<GameObject> ();
+	public int carCount;
 	public int nodeCount;
 	private GameGraph graph;
 	private List<List<Vector3>> paths;
@@ -24,6 +24,7 @@ public class Logic : MonoBehaviour {
 			graph.addNode(n);
 		}
 
+		//Connect nodes/waypoints
 		graph.Nodes () [1].addAdjacent (graph.Nodes () [19]);
 		graph.Nodes () [2].addAdjacent (graph.Nodes () [48]);
 		graph.Nodes () [3].addAdjacent (graph.Nodes () [46]);
@@ -150,30 +151,6 @@ public class Logic : MonoBehaviour {
 		graph.Nodes () [69].addAdjacent (graph.Nodes () [51]);
 		graph.Nodes () [70].addAdjacent (graph.Nodes () [21]);
 
-
-		/*
-		graph.Nodes () [0].addAdjacent (graph.Nodes () [10]);
-		graph.Nodes () [10].addAdjacent (graph.Nodes () [1]);
-		graph.Nodes () [1].addAdjacent (graph.Nodes () [2]);
-		graph.Nodes () [2].addAdjacent (graph.Nodes () [13]);
-		graph.Nodes () [13].addAdjacent (graph.Nodes () [3]);
-		graph.Nodes () [3].addAdjacent (graph.Nodes () [0]);
-
-		graph.Nodes () [4].addAdjacent (graph.Nodes () [7]);
-		graph.Nodes () [7].addAdjacent (graph.Nodes () [8]);
-		graph.Nodes () [8].addAdjacent (graph.Nodes () [12]);
-		graph.Nodes () [12].addAdjacent (graph.Nodes () [6]);
-		graph.Nodes () [6].addAdjacent (graph.Nodes () [5]);
-		graph.Nodes () [5].addAdjacent (graph.Nodes () [11]);
-		graph.Nodes () [11].addAdjacent (graph.Nodes () [9]);
-		graph.Nodes () [9].addAdjacent (graph.Nodes () [4]);
-
-		graph.Nodes () [8].addAdjacent (graph.Nodes () [9]);
-		graph.Nodes () [11].addAdjacent (graph.Nodes () [12]);
-		graph.Nodes () [8].addAdjacent (graph.Nodes () [10]);
-		graph.Nodes () [11].addAdjacent (graph.Nodes () [13]);
-		*/
-
 		//Spawn cars on paths
 		carsContainer = new GameObject("Cars");
 		spawnPoints = new Dictionary<System.Guid, Vector3> ();
@@ -202,7 +179,7 @@ public class Logic : MonoBehaviour {
 
 		bool overlap = false;
 		foreach (KeyValuePair<System.Guid, Vector3> entry in spawnPoints) {
-			if(Vector3.Distance(startingPosition, entry.Value) < 1){
+			if(Vector3.Distance(startingPosition, entry.Value) < 7){
 				overlap = true;
 			}	
 		}
@@ -213,7 +190,8 @@ public class Logic : MonoBehaviour {
 		System.Guid carGuid = System.Guid.NewGuid ();
 		spawnPoints.Add(carGuid,startingPosition);
 		
-		//Create new car
+		//Create new car: choose arbitrary model
+		GameObject car = cars [Random.Range (0, cars.Count)];
 		GameObject newCar = (GameObject)Instantiate(car, startingPosition, Quaternion.identity);
 		newCar.GetComponent<CarNPCs> ().waypoints = graph;
 		newCar.GetComponent<CarNPCs> ().currentWP = currentWaypoint;
