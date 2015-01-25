@@ -23,19 +23,19 @@ public class CarNPCs : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//currentWP = waypoints [currentWPIndex];
 
 		Vector3 dir = transform.forward; //Quaternion.LookRotation(dir) * transform.position;//Quaternion.AngleAxis(-20, Vector3.up) * transform.position; //- transform.position;
 
-		Debug.DrawRay (transform.position, Quaternion.AngleAxis(35, Vector3.up) * transform.forward * rayDistance *1.5f);
-		
-		Ray middleRay = new Ray(transform.position, transform.forward * rayDistance);
-		Ray rightRay = new Ray(transform.position, Quaternion.AngleAxis(35, Vector3.up) * transform.forward * rayDistance *1.5f);
+		Debug.DrawRay (transform.position+new Vector3(0,1f,0), Quaternion.AngleAxis(35, Vector3.up) * transform.forward * rayDistance *2f);
+		Debug.DrawRay (transform.position+new Vector3(0,1f,0), transform.forward * rayDistance);
+
+		Ray middleRay = new Ray(transform.position+new Vector3(0,1f,0), transform.forward * rayDistance);
+		Ray rightRay = new Ray(transform.position+new Vector3(0,1f,0), Quaternion.AngleAxis(35, Vector3.up) * transform.forward * rayDistance *2f);
 		
 		RaycastHit hit;
 		if (Physics.Raycast (middleRay, out hit, rayDistance) || Physics.Raycast (rightRay, out hit, rayDistance)) {
 			if(hit.collider.tag == "car"){
-				if(Vector3.Angle(hit.collider.transform.forward,transform.forward)<105){
+				if(Vector3.Angle(hit.collider.transform.forward,transform.forward)<90){
 					if(stopFrameCounter>800){
 						print("Destroyed jammed car!");
 						//Remove car from jam if not moving for > 800 frames, then respawn
@@ -58,13 +58,6 @@ public class CarNPCs : MonoBehaviour {
 			//Select next waypoint randomly
 			int currentWPIndex = Random.Range(0,currentWP.adjacent.Count);
 			currentWP = currentWP.adjacent[currentWPIndex];
-			/*
-			++currentWPIndex;
-			if(currentWPIndex > waypoints.Count -1)
-			{
-				currentWPIndex = 0;
-			}
-			*/
 		}
 	}
 
@@ -72,6 +65,7 @@ public class CarNPCs : MonoBehaviour {
 	{
 		Vector3 direction = currentWP.coords - transform.position;
 		Vector3 moveVector = direction.normalized * moveSpeed * Time.deltaTime;
+
 		transform.position += moveVector;
 
         //transform.Translate(moveVector);
@@ -79,13 +73,11 @@ public class CarNPCs : MonoBehaviour {
 		if (direction != Vector3.zero) {
 				transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (direction), 4 * Time.deltaTime);
 		}
-
-        /*NavMeshHit hit;
-
-        NavMesh.SamplePosition(direction, out hit, 1000, 1);
-
+		/*
+        NavMeshHit hit;
+		NavMesh.SamplePosition(currentWP.coords, out hit, 1000, 1);
         Vector3 finalPosition = hit.position;
-
-	    GetComponent<NavMeshAgent>().SetDestination(finalPosition);*/
+	    GetComponent<NavMeshAgent>().SetDestination(finalPosition);
+	    */
 	}
 }
