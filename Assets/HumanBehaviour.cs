@@ -6,21 +6,24 @@ public class HumanBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //WalkSpeed = 100f;
+        WalkSpeed = 10;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        rigidbody.velocity = transform.forward * WalkSpeed;
+        this.rigidbody.velocity = transform.forward * WalkSpeed;
 	}
 
     void turnLeft()
     {
-        transform.Rotate(0, -90, 0);
+        int angle = Random.Range(30, 90);
+        this.transform.Rotate(0, -angle, 0);
     }
 
     void turnRight()
     {
-        this.transform.Rotate(0, 90, 0);
+        int angle = Random.Range(30, 90);
+        this.transform.Rotate(0, angle, 0);
     }
 
     void OnTriggerEnter(Collider col)
