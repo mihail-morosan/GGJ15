@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 public class StreetWalkerBehaviour : MonoBehaviour
 {
 
-    Vector3 finalPosition;
     private float _lastUpdate = 0;
     private Vector3 _destination;
 
@@ -20,6 +19,9 @@ public class StreetWalkerBehaviour : MonoBehaviour
     public bool WantsToBePickedUp = false;
 
     public GameObject DestinationPrefab;
+
+    public AnimationClip IdleAnimation;
+    public AnimationClip RunAnimation;
 
 	// Use this for initialization
 	void Start () {
@@ -37,7 +39,9 @@ public class StreetWalkerBehaviour : MonoBehaviour
 	void Update () {
 
 	    if (!WantsToBePickedUp)
-	    {
+        {
+            this.animation.CrossFade("run");
+
 	        //Debug.Log(Time.time - _lastUpdate);
 	        if (Time.time - _lastUpdate > UpdateFrequency)
 	        {
@@ -56,7 +60,7 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
 	        NavMesh.SamplePosition(_destination, out hit, 100, 1);
 
-	        finalPosition = hit.position;
+	        Vector3 finalPosition = hit.position;
 
 	        finalPosition.y = transform.position.y;
 
@@ -70,9 +74,11 @@ public class StreetWalkerBehaviour : MonoBehaviour
 	        }
 	    }
 	    else
-	    {
+        {
+            this.animation.CrossFade("idle");
 	        //Check for player movement
-
+	        if (Player == null)
+	            return;
             if (!Player.HasPickup && CheckProximity())
             {
                 Debug.Log("Is in Proximity");
@@ -96,11 +102,11 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
                     Vector3 finalPosition = hit.position;
 
-                    finalPosition.y = 0;
+                    finalPosition.y = transform.position.y;
 
 
 
-                    // Player.GetComponent<PointArrowAtTarget>().TargetObject = Instantiate(DestinationPrefab, finalPosition, transform.rotation) as GameObject;
+                    //Player.GetComponent<PointArrowAtTarget>().TargetObject = Instantiate(DestinationPrefab, finalPosition, transform.rotation) as GameObject;
 
                     //Delete this human
                     //Destroy(this.gameObject);
@@ -111,7 +117,8 @@ public class StreetWalkerBehaviour : MonoBehaviour
 	    //transform.position += (finalPosition - transform.position)*Time.deltaTime;
 	}
 
-    public Vector3 GetPickupDestination(){
-        return finalPosition;
+    public Vector3 GetPickupDestination()
+    {
+        return _destination;
     }
 }
