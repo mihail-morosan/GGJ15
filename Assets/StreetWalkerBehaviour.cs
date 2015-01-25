@@ -83,7 +83,7 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
 
                     //Create destination for dropoff
-                    Vector3 randomDirection = Random.insideUnitSphere * 100;
+                    Vector3 randomDirection = Random.insideUnitSphere * 15;
 
                     randomDirection += transform.position;
 
@@ -91,22 +91,26 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
                     NavMeshHit hit;
 
-                    NavMesh.SamplePosition(_destination, out hit, 1000, 1);
+                    NavMesh.SamplePosition(_destination, out hit, 100, 1);
 
                     Vector3 finalPosition = hit.position;
 
-                    finalPosition.y = transform.position.y;
+                    finalPosition.y = 0;
 
 
 
-                    Player.GetComponent<PointArrowAtTarget>().TargetObject = Instantiate(DestinationPrefab, finalPosition, transform.rotation) as GameObject;
+                    // Player.GetComponent<PointArrowAtTarget>().TargetObject = Instantiate(DestinationPrefab, finalPosition, transform.rotation) as GameObject;
 
                     //Delete this human
-                    Destroy(this.gameObject);
+                    //Destroy(this.gameObject);
                 }
             }
 	    }
 
 	    //transform.position += (finalPosition - transform.position)*Time.deltaTime;
 	}
+
+    public Vector3 GetPickupDestination(){
+        return _destination;
+    }
 }
