@@ -121,6 +121,14 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
     public Vector3 GetPickupDestination()
     {
-        return _destination;
+        NavMeshHit hit;
+
+        NavMesh.SamplePosition(_destination, out hit, 1000, 1);
+
+        Vector3 finalPosition = hit.position;
+
+        finalPosition.y = transform.position.y;
+
+        return finalPosition;
     }
 }
