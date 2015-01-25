@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DestinationBehaviour : MonoBehaviour {
     public CarController player;
-    public float ProximityForPickup = 2;
+    public float ProximityForPickup = 4;
     public float MaximumVelocityForPickup = 200;
     public bool _reached;
 	// Use this for initialization
