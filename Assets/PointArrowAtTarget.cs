@@ -32,7 +32,8 @@ public class PointArrowAtTarget : MonoBehaviour
         
         Arrow.transform.rotation = Quaternion.LookRotation(newDir);
 
-
-        Arrow.transform.position = transform.position;
+        Vector3 pos = transform.position;
+        pos.y += 3;
+        Arrow.transform.position = pos;
     }
 }

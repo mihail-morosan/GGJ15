@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 public class StreetWalkerBehaviour : MonoBehaviour
 {
 
-    Vector3 finalPosition;
     private float _lastUpdate = 0;
     private Vector3 _destination;
 
@@ -41,7 +40,7 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
 	    if (!WantsToBePickedUp)
         {
-            if (this.animation != null)
+            if(this.animation!=null)
                 this.animation.CrossFade("run");
 
 	        //Debug.Log(Time.time - _lastUpdate);
@@ -62,7 +61,7 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
 	        NavMesh.SamplePosition(_destination, out hit, 100, 1);
 
-	        finalPosition = hit.position;
+	        Vector3 finalPosition = hit.position;
 
 	        finalPosition.y = transform.position.y;
 
@@ -77,7 +76,7 @@ public class StreetWalkerBehaviour : MonoBehaviour
 	    }
 	    else
         {
-            if(this.animation != null)
+            if (this.animation != null)
                 this.animation.CrossFade("idle");
 	        //Check for player movement
 	        if (Player == null)
@@ -120,10 +119,16 @@ public class StreetWalkerBehaviour : MonoBehaviour
 	    //transform.position += (finalPosition - transform.position)*Time.deltaTime;
 	}
 
+    public Vector3 GetPickupDestination()
+    {
+        NavMeshHit hit;
 
-    public Vector3 GetPickupDestination(){
+        NavMesh.SamplePosition(_destination, out hit, 1000, 1);
+
+        Vector3 finalPosition = hit.position;
+
+        finalPosition.y = transform.position.y;
+
         return finalPosition;
     }
 }
-
-

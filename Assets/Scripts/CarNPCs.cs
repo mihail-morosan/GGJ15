@@ -73,8 +73,19 @@ public class CarNPCs : MonoBehaviour {
 		Vector3 direction = currentWP.coords - transform.position;
 		Vector3 moveVector = direction.normalized * moveSpeed * Time.deltaTime;
 		transform.position += moveVector;
+
+        //transform.Translate(moveVector);
+
 		if (direction != Vector3.zero) {
 				transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (direction), 4 * Time.deltaTime);
 		}
+
+        /*NavMeshHit hit;
+
+        NavMesh.SamplePosition(direction, out hit, 1000, 1);
+
+        Vector3 finalPosition = hit.position;
+
+	    GetComponent<NavMeshAgent>().SetDestination(finalPosition);*/
 	}
 }
