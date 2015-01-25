@@ -10,6 +10,8 @@ public class ChangeScoreOnImpact : MonoBehaviour
 
     public int SecondsToAdd = 0;
 
+    public GameObject SpawnOnDeath;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -24,8 +26,20 @@ public class ChangeScoreOnImpact : MonoBehaviour
     {
         if (Coll.transform.tag == "Player")
         {
-            Coll.transform.GetComponent<ScoreManagement>().AddPoints(ScoreChange);
-            Coll.transform.GetComponent<ScoreManagement>().AddSeconds(SecondsToAdd);
+            if (Coll.transform.GetComponent<ScoreManagement>() != null)
+            {
+                Coll.transform.GetComponent<ScoreManagement>().AddPoints(ScoreChange);
+                Coll.transform.GetComponent<ScoreManagement>().AddSeconds(SecondsToAdd);
+            }
+
+            //Change this to temporal
+            if(transform.GetComponent<CarNPCs>()!=null)
+                transform.GetComponent<CarNPCs>().moveSpeed = 0;
+
+            if (SpawnOnDeath != null)
+            {
+                Instantiate(SpawnOnDeath, transform.position, transform.rotation);
+            }
 
             if (DestroyOnCollision)
             {
