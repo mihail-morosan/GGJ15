@@ -8,7 +8,7 @@ public class DestinationBehaviour : MonoBehaviour {
     public bool _reached;
 	// Use this for initialization
 	void Start () {
-        player = GameObject.Find("BasicTrollCar").GetComponent<CarController>();
+        //player = GameObject.Find("BasicTrollCar").GetComponent<CarController>();
 	}
 	
 	// Update is called once per frame
