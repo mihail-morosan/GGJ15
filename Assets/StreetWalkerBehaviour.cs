@@ -106,10 +106,10 @@ public class StreetWalkerBehaviour : MonoBehaviour
 
 
 
-                    Player.GetComponent<PointArrowAtTarget>().TargetObject = Instantiate(DestinationPrefab, finalPosition, transform.rotation) as GameObject;
+                    //Player.GetComponent<PointArrowAtTarget>().TargetObject = Instantiate(DestinationPrefab, finalPosition, transform.rotation) as GameObject;
 
                     //Delete this human
-                    Destroy(this.gameObject);
+                    //Destroy(this.gameObject);
                 }
             }
 	    }
